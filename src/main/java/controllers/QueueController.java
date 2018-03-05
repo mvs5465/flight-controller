@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -28,7 +29,7 @@ public class QueueController {
    }
 
    @RequestMapping("/removeAircraft/{name}")
-   public synchronized void dequeue(@PathVariable("name") int name) {
+   public synchronized void dequeue(@PathVariable("name") int name) throws IOException {
       logger.info("Received removal request, aircraft {}", name);
 
       for (Iterator<Aircraft> it = aircraftList.iterator(); it.hasNext();) {
@@ -41,6 +42,7 @@ public class QueueController {
       }
 
       logger.error("Aircraft not found in list");
+      throw new IOException("Aircraft not found in list");
    }
 
 }
