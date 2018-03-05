@@ -6,21 +6,24 @@ public class Aircraft implements Comparable<Aircraft> {
       EMERGENCY, VIP, PASSENGER, CARGO
    }
 
-   private Priority priority = Priority.CARGO; // default to the lowest priority
-   private int id;
-   
-   public Aircraft(int id) {
-      this.setId(id);
+   public enum Size {
+      LARGE, SMALL
    }
 
-   public Aircraft(int id, Priority priority) {
-      this.setId(id);
+   private Priority priority;
+   private Size size;
+
+   public Aircraft(Priority priority, Size size) {
+      this.setSize(size);
       this.setPriority(priority);
    }
 
-   public Aircraft(int id, int priority) {
-      this.setId(id);
-      this.setPriority(Priority.values()[priority]);
+   public void setSize(Size size) {
+      this.size = size;
+   }
+
+   public Size getSize() {
+      return size;
    }
 
    public Priority getPriority() {
@@ -30,18 +33,30 @@ public class Aircraft implements Comparable<Aircraft> {
    public void setPriority(Priority priority) {
       this.priority = priority;
    }
-   
-   public int getId() {
-      return id;
-   }
-
-   public void setId(int id) {
-      this.id = id;
-   }
 
    @Override
    public int compareTo(Aircraft o) {
-      return this.getPriority().compareTo(o.getPriority());
+      
+      // This method handles our prioritizing
+      // Rules:
+      //   a. VIP aircraft has precedence over all other ACs except Emergency.
+      //      Emergency aircraft has highest priority.
+      //   b. Passenger AC’s have removal precedence over Cargo AC’s.
+      //   c. Large AC’s of a given type have removal precedence over Small AC’s
+      //      of the same type.
+      //   d. Earlier enqueued AC’s of a given type and size have precedence over
+      //      later enqueued AC’s of the same type and size.
+      
+      // Reasons why this satisfies the requirements:
+      //   "Higher" priority values get pushed back in the list
+      //   "Smaller" aircraft get pushed back in the list
+      //   Collections.sort() is a STABLE SORT, so older enqueued aircraft retain priority
+      int priorityComparison = this.getPriority().compareTo(o.getPriority());
+      if (priorityComparison == 0) {
+         return this.getSize().compareTo(o.getSize());
+      } else {
+         return priorityComparison;
+      }
    }
 
    @Override
@@ -49,6 +64,7 @@ public class Aircraft implements Comparable<Aircraft> {
       final int prime = 31;
       int result = 1;
       result = prime * result + ((priority == null) ? 0 : priority.hashCode());
+      result = prime * result + ((size == null) ? 0 : size.hashCode());
       return result;
    }
 
@@ -62,6 +78,8 @@ public class Aircraft implements Comparable<Aircraft> {
          return false;
       Aircraft other = (Aircraft) obj;
       if (priority != other.priority)
+         return false;
+      if (size != other.size)
          return false;
       return true;
    }

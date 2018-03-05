@@ -14,10 +14,11 @@ public class QueueControllerTest {
 
    @Test
    public void testAddPlaneAddsPlane() {
-      testQueueController.queue(55, 1);
+      testQueueController.queue(1, 0);
       Aircraft result = testQueueController.aircraftList.getFirst();
-      assertEquals(55, result.getId());
+      
       assertEquals(Aircraft.Priority.VIP, result.getPriority());
+      assertEquals(Aircraft.Size.LARGE, result.getSize());
    }
 
 }
