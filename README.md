@@ -41,16 +41,27 @@ There is a sample web UI located at `localhost:8080`, with queue, dequeue, and l
 REST API:
 #### Queue:
   **Endpoint:** `/queue`
+  
   **Description:** Adds an aircraft.
+  
   **URL Parameters:** `priority` - integer [0..3] corresponding to Emergency > VIP > Passenger > Cargo
+  
   **Response:** Success/Failure and info message.
   
+---
+
   **Endpoint:** `/dequeue`
+  
   **Description:** Removes the appropriate aircraft.
+  
   **Response:** Success/Failure and info message.
+
+---
   
   **Endpoint:** `/list`
+  
   **Description:** Lists the aircraft.
+  
   **Response:** Success/Failure and JSON array of aircraft.
 
 ## Testing
