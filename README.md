@@ -45,7 +45,10 @@ There is a sample web UI located at `localhost:8080`, with queue, dequeue, and l
   
   **Description:** Adds an aircraft.
   
-  **URL Parameters:** `priority` - integer [0..3] corresponding to Emergency > VIP > Passenger > Cargo
+  **URL Parameters:** 
+   
+    - `priority` - integer [0..3] corresponding to Emergency > VIP > Passenger > Cargo
+    - `size` - integer [0..1] corresponding to Large > Size
   
   **Response:** Success/Failure and info message.
   
