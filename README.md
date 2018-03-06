@@ -10,7 +10,7 @@ A sample concurrent aircraft takeoff scheduler application using Spring Boot.
 
 - [Java 8](http://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html)
 
-- [Maven](https://maven.apache.org/install.html)
+- [Maven](https://maven.apache.org/install.html) (Optional, use included ./mvnw script if not installed)
 
 - [Docker](https://docs.docker.com/install/)
 
@@ -36,6 +36,11 @@ A sample concurrent aircraft takeoff scheduler application using Spring Boot.
 
 ### 2. Use
 
+There is a sample web UI located at `localhost:8080`, with queue, dequeue, and list buttons.
+
+REST API:
+#### Queue:
+  Endpoint: 
 There are two endpoints provided by this application and a sample web ui at `localhost:8080`.
 
 ## Testing
