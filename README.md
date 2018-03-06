@@ -38,8 +38,9 @@ A sample concurrent aircraft takeoff scheduler application using Spring Boot.
 
 There is a sample web UI located at `localhost:8080`, with queue, dequeue, and list buttons.
 
-REST API:
-#### Queue:
+#### REST API Endpoints:
+---
+
   **Endpoint:** `/queue`
   
   **Description:** Adds an aircraft.
