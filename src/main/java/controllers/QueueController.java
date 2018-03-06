@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,8 +75,9 @@ public class QueueController {
          logger.info(message);
          response = ResponseEntity.status(HttpStatus.OK).body(jsonPair("Error", message));
       } else {
-         logger.info("Response: " + aircraftList.toString());
-         response = ResponseEntity.status(HttpStatus.OK).body(jsonPair("Success", aircraftList.toString()));
+         String message = convertLinkedListToJsonArray();
+         logger.info("Response: {}", message);
+         response = ResponseEntity.status(HttpStatus.OK).body(message);
       }
 
       return response;
@@ -85,6 +85,30 @@ public class QueueController {
 
    public String jsonPair(String key, String value) {
       return "{\"" + key + "\":\"" + value + "\"}";
+   }
+
+   public String convertLinkedListToJsonArray() {
+
+      String response = null;
+
+      if (!aircraftList.isEmpty()) {
+
+         response = "{\"aircraft\":[";
+
+         for (int i = 0; i < aircraftList.size(); i++) {
+            if (i > 0) {
+               response += ",";
+            }
+            response += "{\"priority\":\"" + aircraftList.get(i).getPriority().toString() + "\"," + "\"size\":\""
+                  + aircraftList.get(i).getSize().toString() + "\"}";
+         }
+
+         response += "]}";
+
+         return response;
+      }
+
+      return response;
    }
 
 }
